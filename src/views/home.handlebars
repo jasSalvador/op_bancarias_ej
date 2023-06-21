@@ -1,0 +1,53 @@
+<section>
+    <div class="d-flex flex-wrap justify-content-between align-items-center px-5 py-3 text-light text-center mx-auto">
+        <h1>Banco Otrora</h1>
+        <h5>Bienvenido! Aquí encontrarás información de tus cuentas, registros y datos personales.</h5>
+    </div>
+
+    <div class="container d-flex flex-wrap justify-content-between align-items-center py-5 mx-auto">
+        <!--col izq-->
+        <div class="py-5 d-flex flex-column col-lg-5 col-sm-10 text-center mx-auto">
+            <div class="py-3">
+                <input type="text" class="form-control px-4 mb-2" id="inputRut" placeholder="Ingresa tu RUT">
+                <input type="text" class="form-control px-4" id="inputPass" placeholder="Ingresa tu password">
+            </div>
+
+            <div class="text-center mx-auto">
+                <button class="btn">Iniciar sesión</button>
+                <button class="btn">Registrarse</button>
+            </div>
+        </div>
+
+        <!--col der-->
+        <div class="buscar py-5 col-lg-5 col-sm-10 text-center mx-auto">
+            <img src="/0O2Pp6-mOkY.jpg" class="rounded-5" alt="banco">
+        </div>
+    </div>
+</section>
+
+{{!-- <script>
+    let btnBuscar = document.getElementById("btnBuscar");
+    let inputBtn = document.getElementById("inputBuscar");
+
+    btnBuscar.addEventListener('click', (event) => {
+        location.href = '/anime/' + inputBtn.value;
+    })
+</script> --}}
+
+<style>
+    img {
+        width: 100%;
+        display: block;
+    }
+
+    .btn {
+        background-color: rgb(55, 81, 226);
+        color: white;
+    }
+
+    .btn:hover {
+        background-color: rgb(145, 170, 228);
+        color: black;
+    }
+
+</style>
