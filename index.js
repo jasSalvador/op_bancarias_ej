@@ -4,8 +4,6 @@ import { goHome } from './src/controllers/test.controller.js';
 
 
 //rutas
-
-
 const main = async () => {
     try {
         let client = await db.connect()
@@ -20,13 +18,5 @@ const main = async () => {
         console.log('error al iniciar servidor: ' + error)
     }
 }
-
-
-
-
-
-
-
-
 
 main()

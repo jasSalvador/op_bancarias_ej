@@ -1,16 +1,19 @@
 import { createCuenta, deleteCuenta, getCuentaById, getCuentas, updateCuenta} from '../controllers/cuentas.controller.js';
 import { createUsuario, deleteUsuario, getUsuarioBy, getUsuarios, updateUsuario } from '../controllers/usuarios.controller.js';
 import { createTransaccion, updateTransaccion, deleteTransaccion, getTransaccion, getTransaccionBy } from '../controllers/transacciones.controller.js';
+import { goHome, table, formRegistro, goCreditos, validarLogin } from '../controllers/views.controller.js'
+
+
 import {Router} from 'express';
-import {goHome, goCliente} from '../controllers/views.controller.js'
+
 const router = Router();
 
 
 //Rutas a views
 router.get('/', goHome)
-router.get('/cliente', goCliente)
-
-
+router.get('/cliente', table)
+router.get('/registro', formRegistro);
+router.get('/creditos', goCreditos);
 
 
 //Rutas para acceder a la tabla Cuentas
@@ -35,7 +38,7 @@ router.put('/transacciones/:n_operacion', updateTransaccion)
 router.delete('/transacciones/:n_operacion', deleteTransaccion)
 
 
-
+router.post('/login', validarLogin)
 
 export default router;
 

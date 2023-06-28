@@ -1,4 +1,4 @@
-<!--tabla anime-->
+<!--tabla usuarios-->
 <div class="container py-5 text-center mx-auto">
     <h2 class="text-center text-light mx-auto my-5"></h2>
 
@@ -27,7 +27,7 @@
                         <td>{{this.n_cuenta}}</td>
                         <td>{{this.tipo}}</td>
                         <td>{{this.balance}}</td>
-                        <td><a class="btn detailBtn" href="/transacciones/{{this.id}}">Detalles</a></td>
+                        <td><a class="btn detailBtn" href="/cuentas/{{this.id}}">Detalles</a></td>
                         <td><button class="btn deleteBtn">Eliminar</button></td>
                     </tr>
                     {{/each}}
@@ -40,6 +40,7 @@
     </div>
 </div>
 
+
 <script>
     //Query selectors para almacenar los grupos de botones
     const deleteBtn = document.querySelectorAll(".deleteBtn");
@@ -48,89 +49,179 @@
     //Variable donde se guarda el id capturado por los botones delete, actualizar y detalles
     let id;
 
-    //Muestra el formulario y oculta botones
-    formShow.addEventListener('click', () => {
-        form.classList.replace("d-none", "d-block");
-        formShow.classList.replace("d-block", "d-none");
-        updateForm.classList.replace("d-block", "d-none");
-        createForm.classList.replace("d-none", "d-block");
-        formCreateAnime.reset()
 
-    })
+    let path = event.srcElement.offsetParent.nextSibling.parentElement.cells;
+    let rut = path[0].innerText;
 
-    // capturamos todos los botones actualizar y capturamos la data de su fila
-    for (let i = 0; i < updateBtn.length; i++) {
-        updateBtn[i].addEventListener("click", (event) => {
+    const requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
 
-            form.classList.replace("d-none", "d-block");
-            createForm.classList.replace("d-block", "d-none");
-            updateForm.classList.replace("d-none", "d-block");
-            formShow.classList.replace("d-none", "d-block");
+    fetch(`http://localhost:3000/usuarios/${rut}`, requestOptions)
+        .then(response => {
+            if (response.status == 200) {
+                return response.json();
+            } else {
+                throw new Error("Error al obtener los datos")
+            }
+        })
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+        
+        
 
-            let path = event.srcElement.offsetParent.nextSibling.parentElement.cells
 
-            id = path[0].innerText;
-            createNombre.value = path[1].innerText;
-            createGenero.value = path[2].innerText;
-            createAño.value = path[3].innerText;
-            createAutor.value = path[4].innerText;
-        });
-    }
+
+
+    //----------------------------------------------------------
+    //inicio sesion
+    const btnSesion = document.getElementById('btnSesion');
+
+    btnSesion.addEventListener('click', (event) => {
+
+        const rut = document.getElementById('inputRut').value;
+        const clave = document.getElementById('inputClave').value;
+
+        //Guardar los valores de rut y clave en variables o en algún objeto global
+        window.usuarioActual = {
+            rut: rut,
+            clave: clave
+        };
+
+        //redireccionar a la página con la tabla
+        window.location.href = '/cliente';
+    });
+
+
+
+
+
+    //-----------------------------------------------------------------------------------------------------
+    //mostrar en la tabla
+    //window.addEventListener('load', async () => {
+
+        //obtener clave y rut del objeto input
+        //const rut = window.usuarioActual.rut;
+        //const clave = window.usuarioActual.clave;
+
+        //try {
+            // Realizar la solicitud para obtener datos del usuario
+        //    const response = await fetch(`/usuarios/${rut}/cuenta?clave=${clave}`);
+        //    const data = await response.json();
+
+        //    if (response.ok) {
+        //        const cuentaUsuario = data.cuenta;
+        //        console.log("Cuenta Usuario", cuentaUsuario);
+        //        mostrarTabla(cuentaUsuario[0]);
+        //    } else {
+        //        throw new Error(data.message);
+        //    }
+        //} catch (error) {
+        //    alert('Error al obtener los datos de la cuenta: ' + error.message);
+        //}
+    //});
+    //-----------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+//Muestra el formulario y oculta botones
+//formShow.addEventListener('click', () => {
+// form.classList.replace("d-none", "d-block");
+// formShow.classList.replace("d-block", "d-none");
+// updateForm.classList.replace("d-block", "d-none");
+// createForm.classList.replace("d-none", "d-block");
+// formCreateAnime.reset()
+//})
+
+// capturamos todos los botones actualizar y capturamos la data de su fila
+//for (let i = 0; i < updateBtn.length; i++) { // updateBtn[i].addEventListener("click", (event)=> {
+
+    // form.classList.replace("d-none", "d-block");
+    // createForm.classList.replace("d-block", "d-none");
+    // updateForm.classList.replace("d-none", "d-block");
+    // formShow.classList.replace("d-none", "d-block");
+
+    // let path = event.srcElement.offsetParent.nextSibling.parentElement.cells
+
+    // id = path[0].innerText;
+    // createNombre.value = path[1].innerText;
+    // createGenero.value = path[2].innerText;
+    // createAño.value = path[3].innerText;
+    // createAutor.value = path[4].innerText;
+    // });
+    //}
 
     // capturamos todos los botones eliminar y eliminamos el valor correspondiente
-    for (let i = 0; i < deleteBtn.length; i++) {
-        deleteBtn[i].addEventListener("click", (event) => {
+    //for (let i = 0; i < deleteBtn.length; i++) { // deleteBtn[i].addEventListener("click", (event)=> {
 
-            let path = event.srcElement.offsetParent.nextSibling.parentElement.cells
-            let id = path[0].innerText;
+        // let path = event.srcElement.offsetParent.nextSibling.parentElement.cells
+        // let id = path[0].innerText;
 
-            var requestOptions = {
-                method: 'DELETE',
-                redirect: 'follow'
-            };
+        // var requestOptions = {
+        // method: 'DELETE',
+        // redirect: 'follow'
+        // };
 
-            fetch("http://localhost:3000/animes/" + id, requestOptions)
-                .then(response => {
-                    if (response.status == 200) {
-                        return response.json()
-                    } else {
-                        throw new Error("Error al eliminar")
-                    }
-                })
-                .then(result => {
-                    alert(result.message)
-                    location.reload()
-                })
-                .catch(error => error.message);
-        });
-    }
+        // fetch("http://localhost:3000/animes/" + id, requestOptions)
+        // .then(response => {
+        // if (response.status == 200) {
+        // return response.json()
+        // } else {
+        // throw new Error("Error al eliminar")
+        // }
+        // })
+        // .then(result => {
+        // alert(result.message)
+        // location.reload()
+        // })
+        // .catch(error => error.message);
+        // });
+        //}
 
-    // capturamos todos los botones para ver Detalles
-    for (let i = 0; i < detailBtn.length; i++) {
-        detailBtn[i].addEventListener("click", (event) => {
-            console.log('hola detalle')
+        // capturamos todos los botones para ver Detalles
+        //for (let i = 0; i < detailBtn.length; i++) { // detailBtn[i].addEventListener("click", (event)=> {
+            // console.log('hola detalle')
 
-            let path = event.srcElement.offsetParent.nextSibling.parentElement.cells
-            let id = path[0].innerText;
+            // let path = event.srcElement.offsetParent.nextSibling.parentElement.cells
+            // let id = path[0].innerText;
 
-            var requestOptions = {
-                method: 'GET',
-                redirect: 'follow'
-            };
+            // var requestOptions = {
+            // method: 'GET',
+            // redirect: 'follow'
+            // };
 
-            fetch(`http://localhost:3000/anime/${id}`, requestOptions)
-                .then(response => {
-                    if (response.status == 200) {
-                        return response.json();
-                    } else {
-                        throw new Error("Error al obtener los datos")
-                    }
-                })
-                .then(result => console.log(result))
-                .catch(error => console.log('error', error));
-        });
-    }
+            // fetch(`http://localhost:3000/anime/${id}`, requestOptions)
+            // .then(response => {
+            // if (response.status == 200) {
+            // return response.json();
+            // } else {
+            // throw new Error("Error al obtener los datos")
+            // }
+            // })
+            // .then(result => console.log(result))
+            // .catch(error => console.log('error', error));
+            // });
+            //}
+
+
 </script>
+
+
+
+
+
+
+
 
 <style>
     .table {
@@ -155,7 +246,9 @@
         color: white;
     }
 
-    #formShow:hover, .detailBtn:hover, .deleteBtn:hover {
+    #formShow:hover,
+    .detailBtn:hover,
+    .deleteBtn:hover {
         background-color: rgb(145, 170, 228);
         color: black;
     }

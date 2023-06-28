@@ -1,0 +1,124 @@
+<section class="container py-4">
+    <div class="py-5 logo d-flex justify-content-center align-items-center gap-2 mx-auto">
+        <!--<img src="4614125.png" alt="logo billetera" class="w-50">-->
+        <i class="bi bi-cash-coin px-4"></i>
+        <h3 class="text-center mx-auto">Porque en banco Global queremos facilitarte la vida, ponemos a tu disposición
+            un simulador de créditos, en el que podrás calcular facilmente un crédito de consumo acorde a tus
+            necesidades.</h3>
+    </div>
+    <div class="pt-3">
+        <form>
+            <div class="d-flex flex-wrap justify-content-between py-4">
+                <div class="mb-3 datos py-2">
+                    <label for="deuda" class="form-label fw-bold">Cuanto dinero quieres solicitar?</label>
+                    <input type="text" class="form-control border-3 border-primary" placeholder="Ingresa un monto"
+                        id="deuda">
+                </div>
+
+                <div class="mb-3 datos py-2">
+                    <label for="interes" class="form-label fw-bold">Cuanto interés (%) debes pagar?</label>
+                    <input type="text" class="form-control border-3 border-primary"
+                        placeholder="Ingresa el % de interés" id="interes">
+                </div>
+
+                <div class="mb-3 datos py-2">
+                    <label for="cuotas" class="form-label fw-bold">En cuantas cuotas puedes pagarlo?</label>
+                    <input type="text" class="form-control border-3 border-primary" placeholder="Ingresa n° cuotas"
+                        id="cuotas">
+                </div>
+            </div>
+            <div class="text-center py-4">
+                <button type="submit" class="btn" id="btnSubmit">Calcular credito</button>
+            </div>
+        </form>
+    </div>
+    <div class="mensaje text-center text-light fw-bold py-4">
+        <h2 id="totalPago"></h2>
+    </div>
+</section>
+
+<script>
+    document.getElementById("btnSubmit").addEventListener("click", (event) => {
+        event.preventDefault();
+
+        let deuda = parseInt(document.getElementById("deuda").value);
+        let interes = parseInt(document.getElementById("interes").value);
+        let cuotas = parseInt(document.getElementById("cuotas").value);
+
+        //llamamos funcion validar
+        if (validar(deuda, interes, cuotas)) {
+
+            //respuesta
+            let mensaje = `Tu credito de ${deuda} quedaría en ${cuotas} cuotas de $ ${(calcular(deuda, interes, cuotas)).toLocaleString()}`;
+            document.getElementById("totalPago").innerText = mensaje;
+
+            const totalPagoElement = document.getElementById("totalPago");
+            totalPagoElement.innerText = mensaje;
+            totalPagoElement.classList.add("mi-clase");
+        }
+    })
+
+    const calcular = (deuda, interes, cuotas) => {
+        let calculo = (deuda / cuotas) * ((100 + interes) / 100);
+        return calculo;
+    }
+
+    //validaciones
+    const validar = (deuda, interes, cuotas) => {
+        //valida q no hayan datos vacios
+        if (isNaN(deuda) || isNaN(interes) || isNaN(cuotas)) {
+            alert("Debes ingresar todos los datos");
+            return false;
+        }
+
+        //validar q los montos sean superiores a 0
+        if (deuda <= 0 || interes <= 0 || cuotas <= 0) {
+            alert("Debes ingresar valores superiores a 0");
+            return false;
+        }
+        return true;
+    };
+</script>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .logo i {
+        font-size: 7rem;
+    }
+
+    .datos input {
+        border - top: none;
+        border-left: none;
+        border-right: none;
+    }
+
+    .btn {
+        background: linear-gradient(80deg, rgb(235, 231, 21), rgb(9, 255, 0));
+        color: black;
+        font-weight: normal;
+    }
+
+    .btn:hover {
+        background: linear-gradient(80deg, rgb(6, 194, 201), rgb(87, 199, 243));
+        font-weight: bold;
+    }
+
+    .mensaje h3 {
+        background: linear-gradient(80deg, rgb(255, 155, 186), rgb(51, 5, 95) 70%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .mi-clase {
+        background: rgb(2, 0, 36);
+        background: radial-gradient(circle, rgba(2, 0, 36, 1) 0%, rgba(72, 2, 87, 1) 51%, rgba(7, 33, 113, 1) 100%);
+        padding: 20px;
+        border: 2px solid cadetblue;
+    }
+</style>

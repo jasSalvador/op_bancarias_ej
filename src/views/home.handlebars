@@ -1,21 +1,25 @@
 <section>
     <div class="d-flex flex-wrap justify-content-between align-items-center px-5 py-3 text-light text-center mx-auto">
-        <h1>Banco Otrora</h1>
+        <h1>Banco Global</h1>
         <h5>Bienvenido! Aquí encontrarás información de tus cuentas, registros y datos personales.</h5>
     </div>
 
     <div class="container d-flex flex-wrap justify-content-between align-items-center py-5 mx-auto">
         <!--col izq-->
         <div class="py-5 d-flex flex-column col-lg-5 col-sm-10 text-center mx-auto">
-            <div class="py-3">
-                <input type="text" class="form-control px-4 mb-2" id="inputRut" placeholder="Ingresa tu RUT">
-                <input type="text" class="form-control px-4" id="inputPass" placeholder="Ingresa tu password">
-            </div>
+            <form action="login" method="POST">
+                <div class="py-3">
 
-            <div class="text-center mx-auto">
-                <button class="btn">Iniciar sesión</button>
-                <button class="btn">Registrarse</button>
-            </div>
+                    <input type="text" name="rut" class="form-control px-4 mb-2" id="inputRut" placeholder="Ingresa tu RUT">
+                    <input type="password" name="password" class="form-control px-4" id="inputClave"
+                        placeholder="Ingresa tu contraseña">
+                </div>
+
+                <div class="text-center mx-auto">
+                    <button class="btn" id="btnSesion">Iniciar sesión</button>
+                    <button class="btn" id="btnRegistro">Registrarse</button>
+                </div>
+            </form>
         </div>
 
         <!--col der-->
@@ -25,14 +29,29 @@
     </div>
 </section>
 
-{{!-- <script>
-    let btnBuscar = document.getElementById("btnBuscar");
-    let inputBtn = document.getElementById("inputBuscar");
+<script>
+    //registro
+    let btnRegistro = document.getElementById('btnRegistro');
 
-    btnBuscar.addEventListener('click', (event) => {
-        location.href = '/anime/' + inputBtn.value;
-    })
-</script> --}}
+    //redirige a form registro
+    btnRegistro.addEventListener('click', (event) => {
+        window.location.href = '/registro';
+    });
+
+    //inicio sesion
+    const btnSesion = document.getElementById('btnSesion');
+
+   // btnSesion.addEventListener('click', (event) => {
+
+   //     const rut = document.getElementById('inputRut').value;
+     //   const clave = document.getElementById('inputClave').value;
+       // console.log(rut, clave)
+
+        //window.location.href = '/cliente';
+
+    //});
+</script>
+
 
 <style>
     img {
@@ -49,5 +68,4 @@
         background-color: rgb(145, 170, 228);
         color: black;
     }
-
 </style>

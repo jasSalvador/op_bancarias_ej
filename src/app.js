@@ -7,6 +7,7 @@ import path, { dirname } from 'path';
 import viewsRouter from './routes/routes.js'
 
 
+
 // Get the current file path and directory name
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -30,6 +31,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 //MIDDLEWARES
 app.use(express.json());
+app.use(express.urlencoded({extended: true})); //POST login
 app.use(cors());
 
 
@@ -45,9 +47,9 @@ app.use(express.static('public'));
 //ROUTES
 app.use('/api/', router)
 
-
 //Registrar rutas desde /
 app.use('/', viewsRouter);
+
 
 
 export default app;

@@ -1,0 +1,162 @@
+<!--formulario registro-->
+<section id="form" class="form text-light py-5">
+    <div class="w-75 mx-auto">
+        <div class="text-center mx-auto">
+            <h2 id="titleForm">Bienvenido.</h2>
+            <p class="pb-4" id="textForm">*Ingresa todos los datos solicitados para registrar tu cuenta.</p>
+        </div>
+
+        <form id="formRegistrarse" class="w-50 text-start mx-auto pb-4">
+            <label for="nombre" class="form-label px-3">Nombre</label>
+            <input value="" type="text" name="nombre" id="nombre" class="form-control" required>
+
+            <label for="primerApellido" class="form-label px-3">Primer Apellido</label>
+            <input value="" type="text" name="primerApellido" id="primerApellido" class="form-control" required>
+
+            <label for="segundoApellido" class="form-label px-3">Segundo Apellido</label>
+            <input value="" type="text" name="segundoApellido" id="segundoApellido" class="form-control" required>
+
+            <label for="rut" class="form-label px-3">Rut</label>
+            <input value="" type="text" name="rut" id="rut" class="form-control" required>
+
+            <label for="fechaNacimiento" class="form-label px-3">FechaNacimiento</label>
+            <input value="" type="date" name="fechaNacimiento" id="fechaNacimiento" class="form-control" required>
+
+            <label for="telefono" class="form-label px-3">Telefono</label>
+            <input value="" type="text" name="telefono" id="telefono" class="form-control" required>
+
+            <label for="email" class="form-label px-3">Email</label>
+            <input value="" type="email" name="email" id="email" class="form-control" required>
+
+            <label for="clave" class="form-label px-3">Clave</label>
+            <input value="" type="password" name="clave" id="clave" class="form-control" required>
+
+            <div class="text-center mx-auto mt-5">
+                <input type="submit" value="Registrarme" class="btn mt-2 mx-1" id="registrarmeForm">
+                <input type="submit" value="Cancelar" class="btn mt-2 mx-1" id="registrarmeCancel">
+                {{!-- <input type="submit" value="Actualizar" class="btn my-2 d-block" id="updateForm"> --}}
+            </div>
+
+        </form>
+    </div>
+</section>
+
+<script>
+    let registrarmeForm = document.getElementById('registrarmeForm');
+    let registrarmeCancel = document.getElementById('registrarmeCancel');
+    //let updateForm = document.getElementById('updateForm');
+
+    //redirige a pag inicio al cancelar regitro
+    registrarmeCancel.addEventListener('click', (event) => {
+        location.href = "/";
+    });
+
+
+    //capturamos el evento submit del formualrio para agregar y modificar
+    let formRegistrarse = document.getElementById('formRegistrarse')
+    formRegistrarse.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        let selector = event.submitter.id
+        if (selector == "registrarmeForm") {
+
+            console.log('Capturando nuevo registro');
+            try {
+                const raw = JSON.stringify({
+                    "nombre": nombre.value,
+                    "primer_apellido": primerApellido.value,
+                    "segundo_apellido": segundoApellido.value,
+                    "rut": rut.value,
+                    "fecha_nacimiento": fechaNacimiento.value,
+                    "email": email.value,
+                    "telefono": telefono.value,
+                    "clave": clave.value
+                })
+
+                const myHeaders = new Headers();
+                myHeaders.append("Content-Type", "application/json");
+
+                let response = await fetch("/usuarios", {
+
+                    method: "POST",
+                    headers: myHeaders,
+                    body: raw,
+                    redirect: 'follow'
+                });
+                //console.log(response);
+                //console.log(response.status)
+
+                let data = await response.json();
+                //console.log(data);
+                if (data.code == 200) {
+                    alert("Usuario creado con éxito.")
+                    formRegistrarse.reset();
+                    location.reload();
+                } else {
+                    throw new Error("Error al guardar los datos en la BD.")
+                    //alert("Error al guardar los datos en la BD.")
+                }
+            } catch (error) {
+                alert(error.message)
+            }
+        } else if (selector == 'updateForm') {
+            console.log('Actualizando usuario');
+            try {
+                const raw = JSON.stringify({
+                    "id": id,
+                    "nombre": nombre.value,
+                    "primer_apellido": primerApellido.value,
+                    "segundo_apellido": segundoApellido.value,
+                    "rut": rut.value,
+                    "fecha_nacimiento": fechaNacimiento.value,
+                    "email": email.value,
+                    "telefono": telefono.value,
+                    "clave": clave.value
+                })
+
+                const myHeaders = new Headers();
+                myHeaders.append("Content-Type", "application/json");
+
+                let response = await fetch("/usuarios", {
+                    method: "PUT",
+                    headers: myHeaders,
+                    body: raw,
+                    redirect: 'follow'
+                });
+
+                let data = await response.json();
+                if (data.code == 200) {
+                    alert("Usuario actualizado con éxito.")
+                    formCreateAnime.reset();
+                    location.reload();
+                } else {
+                    throw new Error("Error al actualizar datos.")
+                }
+            } catch (error) {
+                alert(error.message)
+            }
+        }
+    })
+</script>
+
+
+<style>
+    #registrarmeForm {
+        background-color: rgb(55, 226, 83);
+        color: white;
+    }
+
+    #registrarmeForm:hover {
+        background-color: rgb(56, 231, 158);
+        color: black;
+    }
+
+    #registrarmeCancel {
+        background-color: rgb(223, 35, 22);
+        color: white;
+    }
+
+    #registrarmeCancel:hover {
+        background-color: rgb(250, 53, 53);
+        color: black;
+    }
+</style>
