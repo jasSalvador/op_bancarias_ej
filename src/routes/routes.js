@@ -12,9 +12,10 @@ const router = Router();
 //Rutas a views
 router.get('/', goHome)
 router.get('/cliente', table)
-router.get('/registro', formRegistro);
-router.get('/creditos', goCreditos);
+router.get('/registro', formRegistro)
+router.get('/creditos', goCreditos)
 
+router.post('/login', validarLogin)
 
 //Rutas para acceder a la tabla Cuentas
 router.get('/cuentas', getCuentas)
@@ -38,7 +39,7 @@ router.put('/transacciones/:n_operacion', updateTransaccion)
 router.delete('/transacciones/:n_operacion', deleteTransaccion)
 
 
-router.post('/login', validarLogin)
+
 
 export default router;
 

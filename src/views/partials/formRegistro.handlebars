@@ -1,45 +1,36 @@
 <!--formulario registro-->
-<section id="form" class="form text-light py-5">
-    <div class="w-75 mx-auto">
-        <div class="text-center mx-auto">
-            <h2 id="titleForm">Bienvenido.</h2>
-            <p class="pb-4" id="textForm">*Ingresa todos los datos solicitados para registrar tu cuenta.</p>
-        </div>
+<form id="formRegistrarse" action="" method="" class="w-50 text-start mx-auto pb-4">
+    <label for="nombre" class="form-label px-3">Nombre</label>
+    <input value="" type="text" name="nombre" id="nombre" class="form-control" required>
 
-        <form id="formRegistrarse" class="w-50 text-start mx-auto pb-4">
-            <label for="nombre" class="form-label px-3">Nombre</label>
-            <input value="" type="text" name="nombre" id="nombre" class="form-control" required>
+    <label for="primerApellido" class="form-label px-3">Primer Apellido</label>
+    <input value="" type="text" name="primerApellido" id="primerApellido" class="form-control" required>
 
-            <label for="primerApellido" class="form-label px-3">Primer Apellido</label>
-            <input value="" type="text" name="primerApellido" id="primerApellido" class="form-control" required>
+    <label for="segundoApellido" class="form-label px-3">Segundo Apellido</label>
+    <input value="" type="text" name="segundoApellido" id="segundoApellido" class="form-control" required>
 
-            <label for="segundoApellido" class="form-label px-3">Segundo Apellido</label>
-            <input value="" type="text" name="segundoApellido" id="segundoApellido" class="form-control" required>
+    <label for="rut" class="form-label px-3">Rut</label>
+    <input value="" type="text" name="rut" id="rut" class="form-control" required>
 
-            <label for="rut" class="form-label px-3">Rut</label>
-            <input value="" type="text" name="rut" id="rut" class="form-control" required>
+    <label for="fechaNacimiento" class="form-label px-3">FechaNacimiento</label>
+    <input value="" type="date" name="fechaNacimiento" id="fechaNacimiento" class="form-control" required>
 
-            <label for="fechaNacimiento" class="form-label px-3">FechaNacimiento</label>
-            <input value="" type="date" name="fechaNacimiento" id="fechaNacimiento" class="form-control" required>
+    <label for="telefono" class="form-label px-3">Telefono</label>
+    <input value="" type="text" name="telefono" id="telefono" class="form-control" required>
 
-            <label for="telefono" class="form-label px-3">Telefono</label>
-            <input value="" type="text" name="telefono" id="telefono" class="form-control" required>
+    <label for="email" class="form-label px-3">Email</label>
+    <input value="" type="email" name="email" id="email" class="form-control" required>
 
-            <label for="email" class="form-label px-3">Email</label>
-            <input value="" type="email" name="email" id="email" class="form-control" required>
+    <label for="clave" class="form-label px-3">Clave</label>
+    <input value="" type="password" name="clave" id="clave" class="form-control" required>
 
-            <label for="clave" class="form-label px-3">Clave</label>
-            <input value="" type="password" name="clave" id="clave" class="form-control" required>
-
-            <div class="text-center mx-auto mt-5">
-                <input type="submit" value="Registrarme" class="btn mt-2 mx-1" id="registrarmeForm">
-                <input type="submit" value="Cancelar" class="btn mt-2 mx-1" id="registrarmeCancel">
-                {{!-- <input type="submit" value="Actualizar" class="btn my-2 d-block" id="updateForm"> --}}
-            </div>
-
-        </form>
+    <div class="text-center mx-auto mt-5">
+        <input type="submit" value="Registrarme" class="btn mt-2 mx-1" id="registrarmeForm">
+        <input type="submit" value="Cancelar" class="btn mt-2 mx-1" id="registrarmeCancel">
+        {{!-- <input type="submit" value="Actualizar" class="btn my-2 d-block" id="updateForm"> --}}
     </div>
-</section>
+</form>
+
 
 <script>
     let registrarmeForm = document.getElementById('registrarmeForm');

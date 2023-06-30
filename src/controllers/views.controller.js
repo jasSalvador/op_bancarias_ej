@@ -1,13 +1,3 @@
-/* export const goCliente = async(req, res) => {
-    try{
-        res.render('cliente');
-    }catch(error){
-        if(error.code){
-            let messageError = returnError(error);
-            console.log('Error al cargar Registro: ',messageError)
-        }
-    }
-} */
 import db from '../config/db.config.js'
 
 export const goHome = async (req, res) => {
@@ -61,17 +51,22 @@ export const goCreditos = async (req, res) => {
 
 export const validarLogin = async (req, res) => {
     let { password, rut } = req.body;
-    let result = await db.query("SELECT * FROM usuarios WHERE clave = $1 and rut = $2", [
-        password, rut
-    ])
-    let usuario = result.rows[0];
-    console.log(usuario)
-    if (!usuario) {
-        return res.send("Credenciales no validas.")
+    let resultUsuario = await db.query(
+        "SELECT * FROM usuarios INNER JOIN cuentas ON usuarios.rut = cuentas.rut WHERE usuarios.clave = $1 and usuarios.rut = $2",
+        [password, rut]
+    );
+    let usuarioCuentas = resultUsuario.rows;
+    if (!usuarioCuentas) {
+        return res.send("Credenciales no validas.");
     }
 
-    res.render("cliente", {
-        usuario: usuario.nombre,
-        mensaje: "hola"
+    usuarioCuentas = usuarioCuentas.map((usuario, index) => {
+        usuario.index = index;
+        return usuario;
     })
-}
+
+    console.log(usuarioCuentas);
+    res.render("cliente", {
+        usuarioCuentas
+    });
+};

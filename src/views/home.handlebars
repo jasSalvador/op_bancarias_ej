@@ -1,13 +1,14 @@
 <section>
     <div class="d-flex flex-wrap justify-content-between align-items-center px-5 py-3 text-light text-center mx-auto">
         <h1>Banco Global</h1>
-        <h5>Bienvenido! Aquí encontrarás información de tus cuentas, registros y datos personales.</h5>
+        <h5><span class="fs-3">Bienvenido! </span>Regístrate o ingresa a tu banco en línea y disfruta tus benefícios.</h5>
     </div>
 
     <div class="container d-flex flex-wrap justify-content-between align-items-center py-5 mx-auto">
-        <!--col izq-->
+        <!--col izq login-->
         <div class="py-5 d-flex flex-column col-lg-5 col-sm-10 text-center mx-auto">
-            <form action="login" method="POST">
+
+            <form id="formLogin" action="/login" method="POST">
                 <div class="py-3">
 
                     <input type="text" name="rut" class="form-control px-4 mb-2" id="inputRut" placeholder="Ingresa tu RUT">
@@ -22,7 +23,7 @@
             </form>
         </div>
 
-        <!--col der-->
+        <!--col der imagen banco-->
         <div class="buscar py-5 col-lg-5 col-sm-10 text-center mx-auto">
             <img src="/0O2Pp6-mOkY.jpg" class="rounded-5" alt="banco">
         </div>
@@ -31,15 +32,19 @@
 
 <script>
     //registro
-    let btnRegistro = document.getElementById('btnRegistro');
+    let formLogin = document.getElementById('formLogin');
 
     //redirige a form registro
-    btnRegistro.addEventListener('click', (event) => {
+    formLogin.addEventListener('submit', (event) => {
+        let boton = event.submitter;
+        if(boton.getAttribute("id") == "btnRegistro"){
+        event.preventDefault();
         window.location.href = '/registro';
-    });
-
+        }
+    });            
+        
     //inicio sesion
-    const btnSesion = document.getElementById('btnSesion');
+    let btnSesion = document.getElementById('btnSesion');
 
    // btnSesion.addEventListener('click', (event) => {
 
